@@ -1,0 +1,138 @@
+/* home.css | 첫 화면(Discover) 전용 디자인 (보라·핑크 일러스트 스타일). 색/둥글기는 base.css 의 값을 그대로 씁니다. */
+.home-hero { position: relative; display: grid; grid-template-columns: 1fr; margin: -.4rem -1rem 0; padding: 1.3rem 1rem 0; overflow-x: clip; }
+.hh-text { position: relative; z-index: 2; }
+.hh-text h1 { font-size: 2.15rem; line-height: 1.1; letter-spacing: -.02em; margin: 0 0 .5rem; color: var(--text); word-break: keep-all; max-width: 12em; }
+.hh-text h1::after { content: ''; display: block; width: 8.5rem; height: 7px; border-radius: 8px; background: linear-gradient(90deg, #cbb8f6, var(--pink)); margin-top: .55rem; }
+.hh-text p { color: var(--muted); font-size: 1.02rem; max-width: 26em; margin: .85rem 0 1.1rem; font-weight: 600; }
+.hh-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.hh-actions .btn { min-height: 50px; padding-inline: 1.5rem; font-size: 1rem; }
+.hh-photo { position: relative; margin: 1rem -1rem 0; }
+.hh-photo img { width: 100%; height: 260px; object-fit: cover; object-position: 60% 40%; }
+.hh-photo::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, #fdfbff 0%, rgba(253,251,255,0) 30%); }
+.hh-photo::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(0deg, #fdfbff 0%, rgba(253,251,255,0) 14%); }
+
+/* 4장 일러스트 카드 (태블릿/PC) + 2x2 아이콘 타일 (폰) */
+.quick-cards { display: none; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.4rem 0 1.2rem; }
+.quick-card { display: flex; flex-direction: column; background: linear-gradient(180deg, #fff, #fff6f9); border-radius: 22px; overflow: hidden; color: var(--text); box-shadow: var(--shadow); border: 1px solid #f4ecfb; transition: transform .2s, box-shadow .2s; }
+.quick-card:hover { text-decoration: none; transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.quick-card img { width: 100%; aspect-ratio: 2.7; object-fit: cover; transition: transform .45s; }
+.quick-card:hover img { transform: scale(1.06); }
+.qc-img { display: block; overflow: hidden; }
+.qc-body { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .7rem .9rem .85rem; }
+.qc-body strong { font: 700 1.15rem/1.15 var(--font-head); }
+.qc-go { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); }
+.quick-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin: 1.1rem 0 1rem; }
+.quick-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; min-height: 96px; padding: .8rem; border-radius: 22px; background: var(--primary-soft); color: var(--text); font: 700 .98rem/1.2 var(--font-head); text-align: center; }
+.quick-tile:hover { text-decoration: none; transform: translateY(-2px); }
+.quick-tile .icon { width: 30px; height: 30px; color: var(--primary); }
+.quick-tile.warm { background: #ffeee6; } .quick-tile.warm .icon { color: var(--coral); }
+.quick-tile.rose { background: var(--coral-soft); }
+
+/* 추천 모임 띠 (실제 DB 의 가장 가까운 모임) */
+.featured { display: grid; grid-template-columns: 1fr; gap: .8rem; align-items: center; padding: .7rem; margin: 0 0 1.8rem; border-radius: 26px; background: linear-gradient(90deg, #fff1f5, #fff7f9 60%, #fbf5ff); border: 1px solid #fbe4ec; }
+.ft-thumb { border-radius: 18px; overflow: hidden; aspect-ratio: 2.2; background: #f1e8ff; }
+.ft-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ft-info { display: flex; flex-direction: column; gap: .2rem; min-width: 0; padding: 0 .3rem; }
+.ft-label { display: inline-flex; align-items: center; gap: .35rem; color: var(--coral); font: 700 .95rem var(--font-head); }
+.ft-info h3 { margin: 0; font-size: 1.3rem; color: var(--text); }
+.ft-meta { color: var(--muted); font-size: .9rem; font-weight: 600; display: flex; flex-wrap: wrap; gap: .2rem .8rem; align-items: center; }
+.ft-meta span { display: inline-flex; align-items: center; gap: .3rem; }
+.ft-side { display: flex; align-items: center; gap: .8rem; padding: 0 .3rem .3rem; }
+.ft-count { display: inline-flex; align-items: center; gap: .4rem; background: #fff; padding: .25rem .7rem .25rem .3rem; border-radius: 999px; font-weight: 800; font-size: .85rem; }
+.btn-coral { background: var(--coral); color: #fff; box-shadow: 0 6px 16px rgba(238, 95, 130, .32); }
+.btn-coral:hover { background: #e24a70; text-decoration: none; }
+.featured .btn-coral { margin-left: auto; min-height: 48px; padding-inline: 1.6rem; font-weight: 800; }
+
+.home-lower { padding-top: .6rem; }
+.home-sec { margin-bottom: 2rem; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .8rem; }
+.sec-head h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.02em; }
+.sec-link { display: inline-flex; align-items: center; gap: .25rem; font-weight: 700; font-size: .92rem; white-space: nowrap; }
+
+/* 관심사 카드 */
+.interest-row { display: flex; gap: .8rem; overflow-x: auto; padding: .2rem .1rem .6rem; scroll-snap-type: x proximity; scrollbar-width: none; }
+.interest-row::-webkit-scrollbar { display: none; }
+.interest { flex: 0 0 104px; display: flex; flex-direction: column; align-items: center; gap: .35rem; color: var(--text); scroll-snap-align: start; text-align: center; }
+.interest:hover { text-decoration: none; }
+.interest-tile { width: 100%; aspect-ratio: 1.55; display: grid; place-items: center; border-radius: 26px; overflow: hidden; background: var(--tile); color: var(--ink); transition: transform .2s; }
+.interest-tile img { width: 100%; height: 100%; object-fit: cover; }
+.interest:hover .interest-tile { transform: translateY(-3px) scale(1.03); }
+.interest-name { font-weight: 700; font-size: .85rem; line-height: 1.25; }
+.interest-n { font-size: .72rem; color: var(--muted); margin-top: -.25rem; }
+.tone-orange { --tile: #fff0e3; --ink: #f08a24; } .tone-blue { --tile: #e9efff; --ink: #3577f0; } .tone-mint { --tile: #ddf6ec; --ink: #17a37a; }
+.tone-pink { --tile: #ffe6ec; --ink: #e8587a; } .tone-purple { --tile: #efe9ff; --ink: #7a5af0; } .tone-yellow { --tile: #fff4cf; --ink: #c58a00; }
+.tone-teal { --tile: #dff5f6; --ink: #0f9aa6; } .tone-rose { --tile: #ffe9e4; --ink: #e8664f; }
+
+/* 다가오는 모임: 사진 중심 카드 + 호버 확대 */
+.mt-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+.mt-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; color: var(--text); box-shadow: var(--shadow); transition: box-shadow .2s, transform .2s; }
+.mt-card:hover { text-decoration: none; box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.mt-card.is-over { opacity: .65; }
+.mt-media { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: linear-gradient(135deg, #e5dcff, #ffe1ea); }
+.mt-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.mt-card:hover .mt-media img { transform: scale(1.08); }
+.mt-date { position: absolute; top: .7rem; right: .7rem; background: #fff; color: var(--text); font-weight: 800; font-size: .78rem; padding: .3rem .65rem; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.mt-place { position: absolute; left: .7rem; bottom: .7rem; display: inline-flex; align-items: center; gap: .25rem; background: rgba(255,255,255,.94); color: var(--text); font-weight: 700; font-size: .78rem; padding: .25rem .6rem; border-radius: 999px; }
+.mt-body { display: flex; flex-direction: column; gap: .2rem; padding: .85rem 1rem 1rem; }
+.mt-title { font-size: 1.08rem; line-height: 1.3; }
+.mt-sub { font-size: .85rem; }
+.mt-foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .55rem; }
+.mt-people { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
+.mt-people .small { display: inline-flex; align-items: center; gap: .2rem; }
+
+/* 커뮤니티 사진 타일 */
+.com-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+.com-tile { position: relative; display: block; aspect-ratio: 16 / 8.5; border-radius: 22px; overflow: hidden; color: #fff; box-shadow: var(--shadow); }
+.com-tile:hover { text-decoration: none; }
+.com-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.com-tile:hover img { transform: scale(1.06); }
+.com-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,25,50,0) 45%, rgba(10,25,50,.7) 100%); }
+.com-info { position: absolute; left: 1rem; right: 1rem; bottom: .85rem; display: flex; flex-direction: column; gap: .1rem; }
+.com-info strong { font-size: 1.15rem; text-shadow: 0 1px 6px rgba(0,0,0,.35); }
+.com-info span { display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; font-weight: 600; opacity: .95; }
+
+/* 한국 지도 섹션 */
+.map-card { display: grid; grid-template-columns: 1fr; gap: 1rem; background: linear-gradient(135deg, #f6f1ff, #ffeef2); border: 1px solid var(--border); border-radius: 26px; padding: 1.4rem; overflow: hidden; }
+.map-card h2 { margin: 0 0 .4rem; font-size: 1.35rem; letter-spacing: -.02em; }
+.map-card p { color: var(--muted); }
+.map-card-stat { display: flex; align-items: center; gap: .35rem; font-weight: 700; color: var(--primary) !important; }
+.map-card-art { display: grid; place-items: center; }
+.korea-map { height: 300px; width: auto; max-width: 100%; overflow: visible; }
+.km-land { fill: #e6defb; stroke: #cdbff3; stroke-width: 2; stroke-linejoin: round; }
+.km-pin { cursor: pointer; }
+.km-hit { fill: transparent; }
+.km-dot { fill: #b9a8ee; stroke: #fff; stroke-width: 2; transition: r .15s; }
+.km-pin.has .km-dot { fill: var(--primary); }
+.km-pin:hover .km-dot { fill: var(--coral); }
+.km-pin:focus-visible .km-dot { stroke: var(--text); }
+.km-label { font-size: 12px; font-weight: 800; fill: var(--text); paint-order: stroke; stroke: #fff; stroke-width: 3px; pointer-events: none; }
+
+@media (min-width: 640px) {
+  .mt-grid, .com-grid { grid-template-columns: repeat(2, 1fr); }
+  .interest { flex: 1 1 0; min-width: 96px; }
+  .interest-row { overflow: visible; }
+}
+@media (min-width: 900px) {
+  
+  .mt-grid, .com-grid { grid-template-columns: repeat(3, 1fr); }
+  .map-card { grid-template-columns: 1.1fr .9fr; align-items: center; padding: 2rem 2.4rem; }
+  .korea-map { height: 360px; }
+}
+
+@media (min-width: 640px) {
+  .quick-cards { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .quick-tiles { display: none; }
+  .featured { grid-template-columns: 220px 1fr; }
+  .ft-side { grid-column: 1 / -1; padding-bottom: .4rem; }
+}
+@media (min-width: 900px) {
+  .home-hero { grid-template-columns: 5.2fr 6.8fr; align-items: center; margin: -1.2rem 0 0; padding: 1.6rem 1.5rem 0; }
+  .hh-text h1 { font-size: 3.1rem; }
+  .hh-photo { margin: 0 -1.5rem 0 0; }
+  .hh-photo img { height: 100%; min-height: 360px; max-height: 440px; object-position: center 40%; }
+  .hh-photo::before { background: linear-gradient(90deg, #fdfbff 0%, rgba(253,251,255,0) 26%); }
+  .quick-cards { grid-template-columns: repeat(4, 1fr); }
+  .featured { grid-template-columns: 220px 1.2fr auto auto; padding: .8rem 1.2rem .8rem .8rem; }
+  .ft-side { grid-column: auto; padding: 0; }
+  .featured .btn-coral { margin-left: 0; }
+}
