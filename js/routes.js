@@ -25,6 +25,7 @@ export const ROUTES = [
   { path: '/chat/:slug', access: 'public', nav: 'chat', load: () => import('./features/chat/chat.view.js'), fn: 'roomView' },
   { path: '/profile', access: 'user', nav: 'profile', load: () => import('./features/profile/profile.view.js'), fn: 'myProfileView' },
   { path: '/u/:username', access: 'public', nav: 'profile', load: () => import('./features/profile/profile.view.js'), fn: 'userProfileView' },
+  { path: '/notifications', access: 'user', nav: 'profile', load: () => import('./features/notifications/notifications.view.js'), fn: 'notificationsView' },
   { path: '/login', access: 'guest', nav: 'profile', load: () => import('./features/auth/auth.view.js'), fn: 'loginView' },
   { path: '/signup', redirect: '#/login' },     // 이메일 가입/비밀번호 기능은 없음 (구글·카카오만)
   { path: '/forgot', redirect: '#/login' },

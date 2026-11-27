@@ -385,3 +385,9 @@ Supabase·Netlify 무료 플랜으로 시작 가능합니다. 사용자가 많�
 - **Supabase**: 회원(로그인), 게시글/댓글/채팅, 사진 저장. 코드(GitHub)에는 공개 가능한 주소/공개 키만 들어 있고 비밀 키는 없습니다.
 새 버전 반영 순서: ① `korealink-github-vNNN.zip` 을 로컬 저장소 폴더에 풀기 → ② GitHub Desktop 에서 Commit → Push → ③ Cloudflare 가 자동 배포(1~2분) → ④ 안 되면 Cloudflare Deployments 에서 Rollback.
 점검(npm run check)을 통과하지 못하면 Cloudflare 빌드가 실패하고 **기존 사이트는 그대로 유지**됩니다. (잘못된 코드가 공개되지 않는 안전장치)
+
+### 12-P. 모임 승인 알림 (v024, 015_notifications.sql)
+- 방장이 참가 신청을 **승인**하면 신청한 사람에게 알림이 생깁니다. 앱 위쪽 종 모양 🔔에 빨간 숫자가 뜨고, 앱이 켜져 있으면 작은 알림창도 뜹니다.
+- 알림은 서버 함수가 만들고 본인만 볼 수 있습니다 (가짜 알림 불가). 점검: `supabase/tests/security_check_015.sql` (12/12).
+- 되돌리기: SQL 편집기에서 `drop table public.notifications cascade;` 실행 후 007 파일의 meetup_decide 부분을 다시 실행.
+- 폰이 잠겨 있거나 앱이 꺼져 있을 때 오는 **푸시 알림**은 아직 아닙니다 (앱을 열면 숫자가 보임). 푸시는 별도 서비스 설정이 필요합니다.

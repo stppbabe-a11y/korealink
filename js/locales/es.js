@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "No tienes suficientes puntos. Haz check-in cada día para ganar más.",
   "avatar.saveCost": "Guardar ({cost} P)",
   "auth.googleNotReady": "Este método de inicio de sesión aún no está listo. Prueba con otro.",
+  "notif.title": "Notificaciones",
+  "notif.markAll": "Marcar todo como leído",
+  "notif.empty": "Aún no hay notificaciones",
+  "notif.emptyHint": "Cuando el anfitrión apruebe tu solicitud para unirte a un encuentro, lo verás aquí.",
+  "notif.meetup_approved": "¡Tu solicitud para unirte a «{title}» fue aprobada!",
 };

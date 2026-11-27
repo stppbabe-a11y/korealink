@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "Không đủ điểm. Hãy điểm danh mỗi ngày để tích thêm.",
   "avatar.saveCost": "Lưu ({cost} P)",
   "auth.googleNotReady": "Cách đăng nhập này chưa sẵn sàng. Vui lòng thử cách khác.",
+  "notif.title": "Thông báo",
+  "notif.markAll": "Đánh dấu tất cả đã đọc",
+  "notif.empty": "Chưa có thông báo",
+  "notif.emptyHint": "Khi chủ buổi gặp chấp nhận yêu cầu tham gia của bạn, bạn sẽ thấy ở đây.",
+  "notif.meetup_approved": "Yêu cầu tham gia “{title}” của bạn đã được chấp nhận!",
 };

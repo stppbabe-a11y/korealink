@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "Nicht genug Punkte. Checke jeden Tag ein, um mehr zu sammeln.",
   "avatar.saveCost": "Speichern ({cost} P)",
   "auth.googleNotReady": "Diese Anmeldemethode ist noch nicht bereit. Bitte versuche eine andere.",
+  "notif.title": "Benachrichtigungen",
+  "notif.markAll": "Alle als gelesen markieren",
+  "notif.empty": "Noch keine Benachrichtigungen",
+  "notif.emptyHint": "Wenn der Gastgeber deine Anfrage für ein Treffen annimmt, siehst du es hier.",
+  "notif.meetup_approved": "Deine Anfrage für „{title}“ wurde angenommen!",
 };

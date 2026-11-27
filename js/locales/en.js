@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "Not enough points. Check in every day to earn more.",
   "avatar.saveCost": "Save ({cost} P)",
   "auth.googleNotReady": "This login method isn't ready yet. Please try another one.",
+  "notif.title": "Notifications",
+  "notif.markAll": "Mark all as read",
+  "notif.empty": "No notifications yet",
+  "notif.emptyHint": "When a host approves your request to join a meetup, you'll see it here.",
+  "notif.meetup_approved": "Your request to join “{title}” was approved!",
 };

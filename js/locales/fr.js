@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "Pas assez de points. Faites un check-in chaque jour pour en gagner plus.",
   "avatar.saveCost": "Enregistrer ({cost} P)",
   "auth.googleNotReady": "Cette méthode de connexion n'est pas encore prête. Essayez-en une autre.",
+  "notif.title": "Notifications",
+  "notif.markAll": "Tout marquer comme lu",
+  "notif.empty": "Aucune notification pour l'instant",
+  "notif.emptyHint": "Quand l'organisateur approuve ta demande pour rejoindre une sortie, tu le verras ici.",
+  "notif.meetup_approved": "Ta demande pour rejoindre « {title} » a été approuvée !",
 };

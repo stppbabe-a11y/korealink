@@ -82,6 +82,6 @@ button { cursor: pointer; }
 }
 
 /* 시작 화면(스플래시): 1080x1920 이미지를 화면 크기에 맞춰 덮음 (가로/세로, 폰/PC 모두) */
-.boot-splash { pointer-events: none; position: fixed; inset: 0; z-index: 9999; background: #fbe4ee url('../icons/splash-1080x1920.png') center / cover no-repeat; transition: opacity .35s ease; }
+.boot-splash { pointer-events: none; position: fixed; inset: 0; z-index: 9999; background: #f6f2ff url('../icons/splash-1080x1920.png') center / cover no-repeat; transition: opacity .35s ease; }
 .boot-splash.hide { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .boot-splash { transition: none; } }

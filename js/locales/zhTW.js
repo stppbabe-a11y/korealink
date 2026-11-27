@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "點數不足。每天簽到就能賺取更多點數。",
   "avatar.saveCost": "儲存（{cost} P）",
   "auth.googleNotReady": "此登入方式尚未準備好，請嘗試其他方式。",
+  "notif.title": "通知",
+  "notif.markAll": "全部標為已讀",
+  "notif.empty": "目前沒有通知",
+  "notif.emptyHint": "當活動發起人核准你的加入申請時，會顯示在這裡。",
+  "notif.meetup_approved": "你加入「{title}」的申請已通過！",
 };

@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "포인트가 부족해요. 매일 출석체크로 모아 보세요.",
   "avatar.saveCost": "저장 ({cost}P)",
   "auth.googleNotReady": "이 로그인 방식은 아직 준비되지 않았어요. 다른 방식으로 시도해 주세요.",
+  "notif.title": "알림",
+  "notif.markAll": "모두 읽음",
+  "notif.empty": "아직 알림이 없어요",
+  "notif.emptyHint": "방장이 모임 참가 신청을 승인하면 여기에 알림이 와요.",
+  "notif.meetup_approved": "“{title}” 모임 참가가 승인되었어요!",
 };

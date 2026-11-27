@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "Poin tidak cukup. Check-in setiap hari untuk mengumpulkan lebih banyak.",
   "avatar.saveCost": "Simpan ({cost} P)",
   "auth.googleNotReady": "Metode login ini belum siap. Coba metode lain.",
+  "notif.title": "Notifikasi",
+  "notif.markAll": "Tandai semua sudah dibaca",
+  "notif.empty": "Belum ada notifikasi",
+  "notif.emptyHint": "Saat penyelenggara menyetujui permintaan bergabung Anda, Anda akan melihatnya di sini.",
+  "notif.meetup_approved": "Permintaan Anda untuk bergabung ke “{title}” disetujui!",
 };

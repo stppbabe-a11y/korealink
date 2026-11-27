@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "积分不足。每天签到即可赚取更多积分。",
   "avatar.saveCost": "保存（{cost} P）",
   "auth.googleNotReady": "此登录方式尚未准备好，请尝试其他方式。",
+  "notif.title": "通知",
+  "notif.markAll": "全部标为已读",
+  "notif.empty": "暂无通知",
+  "notif.emptyHint": "当活动发起人批准你的加入申请时，会在这里显示。",
+  "notif.meetup_approved": "你加入“{title}”的申请已通过！",
 };

@@ -2,6 +2,7 @@
 import { h, icon } from './core/dom.js';
 import { t, LANGS, getLang, setLang } from './core/i18n.js';
 import { state, on, isLoggedIn, isAdmin } from './core/store.js';
+import { notifState, startNotifications } from './features/notifications/notifications.service.js';
 import { avatar } from './core/ui.js';
 import { updateMyProfile } from './features/profile/profile.service.js';
 import { siteFooter } from './features/home/footer.js';
@@ -55,6 +56,8 @@ export function mountShell(headerEl, navEl, footerEl) {
         h('div', { class: 'header-right' },
           isAdmin() && h('a', { class: 'header-icon only-mobile', href: '#/admin', 'aria-label': t('nav.admin') }, icon('shield', 20)),
           langSelect(),
+          isLoggedIn() && h('a', { class: 'header-icon header-bell', href: '#/notifications', 'aria-label': t('notif.title') }, icon('bell', 20),
+            notifState.unread > 0 && h('span', { class: 'bell-badge' }, notifState.unread > 9 ? '9+' : String(notifState.unread))),
           isLoggedIn()
             ? h('a', { class: 'header-avatar', href: '#/profile', 'aria-label': t('nav.mypage') }, avatar(state.profile, 36))
             : h('a', { class: 'btn btn-primary btn-sm signin-btn', href: '#/login' }, icon('user', 16), t('auth.login')))));
@@ -67,4 +70,6 @@ export function mountShell(headerEl, navEl, footerEl) {
   on('route', paint);
   on('auth', paint);
   on('lang', paint);
+  on('notif', paint);
+  startNotifications();
 }

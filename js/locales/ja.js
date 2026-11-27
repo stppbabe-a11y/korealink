@@ -430,4 +430,9 @@ export default {
   "avatar.notEnough": "ポイントが足りません。毎日チェックインして貯めましょう。",
   "avatar.saveCost": "保存（{cost} P）",
   "auth.googleNotReady": "このログイン方法はまだ準備中です。別の方法をお試しください。",
+  "notif.title": "通知",
+  "notif.markAll": "すべて既読にする",
+  "notif.empty": "まだ通知はありません",
+  "notif.emptyHint": "ホストが参加リクエストを承認すると、ここに表示されます。",
+  "notif.meetup_approved": "「{title}」への参加が承認されました！",
 };
