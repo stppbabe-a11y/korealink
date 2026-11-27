@@ -1,7 +1,7 @@
 // sw.js | 서비스 워커: 앱 파일(화면 코드/디자인/아이콘)만 폰에 저장해 두고 빠르게 엽니다.
 //   - 로그인 정보, 글, 채팅 등 "데이터"는 절대 저장하지 않습니다. (다른 주소 = Supabase 요청은 가로채지 않음)
 //   - 앱을 수정해서 다시 배포할 때는 아래 VERSION 숫자만 올리면 사용자 폰의 옛 파일이 새 파일로 교체됩니다.
-const VERSION = 'v22';
+const VERSION = 'v23';
 const CACHE = `korealink-${VERSION}`;
 
 self.addEventListener('install', (event) => {

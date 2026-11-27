@@ -23,25 +23,32 @@ export async function editMeetupView(ctx) {
   return renderForm(ctx, m);
 }
 
+// 쓰던 내용 임시저장 (사진 고르다 앱이 다시 시작돼도 복구). 새 모임 만들 때만, 이 기기 브라우저 탭 안에만 보관.
+const DRAFT_KEY = 'korealink.meetupDraft';
+const loadDraft = () => { try { return JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); } catch { return null; } };
+const saveDraft = (d) => { try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch { /* 저장 불가여도 무시 */ } };
+const clearDraft = () => { try { sessionStorage.removeItem(DRAFT_KEY); } catch { /* 무시 */ } };
+
 function renderForm({ root }, meetup) {
   const editing = !!meetup;
+  const draft = !editing ? loadDraft() : null;
   const soon = new Date(Date.now() + 3600 * 1000);
   const state = {
-    category: meetup?.category ?? 'food',
-    languages: [...(meetup?.languages ?? [])],
-    approval: meetup?.approval ?? false,
-    region: meetup?.region ?? '', regionTouched: !!meetup?.region,
-    place: meetup ? { place_name: meetup.place_name, lat: meetup.lat, lng: meetup.lng } : null,
+    category: meetup?.category ?? draft?.category ?? 'food',
+    languages: [...(meetup?.languages ?? draft?.languages ?? [])],
+    approval: meetup?.approval ?? draft?.approval ?? false,
+    region: meetup?.region ?? draft?.region ?? '', regionTouched: !!(meetup?.region || draft?.regionTouched),
+    place: meetup ? { place_name: meetup.place_name, lat: meetup.lat, lng: meetup.lng } : (draft?.place ?? null),
     coverFile: null, removeCover: false,
   };
 
-  const title = field({ label: t('meet.f.title'), name: 'title', required: true, minlength: 3, maxlength: 80, value: meetup?.title ?? '', placeholder: t('meet.f.titlePlaceholder') });
+  const title = field({ label: t('meet.f.title'), name: 'title', required: true, minlength: 3, maxlength: 80, value: meetup?.title ?? draft?.title ?? '', placeholder: t('meet.f.titlePlaceholder') });
   const when = field({ label: t('meet.f.when'), name: 'when', type: 'datetime-local', required: true,
-    value: toLocalInput(meetup ? new Date(meetup.starts_at) : new Date(soon.setMinutes(0, 0, 0))), min: toLocalInput(new Date()) });
+    value: draft?.when && !meetup ? draft.when : toLocalInput(meetup ? new Date(meetup.starts_at) : new Date(soon.setMinutes(0, 0, 0))), min: toLocalInput(new Date()) });
   const capacity = field({ label: t('meet.f.capacity'), name: 'capacity', type: 'number', required: true, min: Math.max(2, meetup?.joined_count ?? 2), max: 20, step: 1, inputmode: 'numeric',
-    value: meetup?.capacity ?? 6, hint: t('meet.f.capacityHint') });
-  const cost = field({ label: t('meet.f.cost'), name: 'cost', maxlength: 80, value: meetup?.cost_note ?? '', placeholder: t('meet.f.costPlaceholder') });
-  const desc = field({ label: t('meet.f.desc'), name: 'desc', type: 'textarea', required: true, minlength: 10, maxlength: 1500, rows: 7, value: meetup?.description ?? '', placeholder: t('meet.f.descPlaceholder') });
+    value: meetup?.capacity ?? draft?.capacity ?? 6, hint: t('meet.f.capacityHint') });
+  const cost = field({ label: t('meet.f.cost'), name: 'cost', maxlength: 80, value: meetup?.cost_note ?? draft?.cost ?? '', placeholder: t('meet.f.costPlaceholder') });
+  const desc = field({ label: t('meet.f.desc'), name: 'desc', type: 'textarea', required: true, minlength: 10, maxlength: 1500, rows: 7, value: meetup?.description ?? draft?.desc ?? '', placeholder: t('meet.f.descPlaceholder') });
   const err = formError();
 
   // 종류
@@ -154,14 +161,25 @@ function renderForm({ root }, meetup) {
         if (!editing) return { id: await createMeetup(values, state.coverFile), changed: true };
         return { id: meetup.id, changed: await updateMeetup(meetup, values, { coverFile: state.coverFile, removeCover: state.removeCover }) };
       });
+      clearDraft();
       toast(res.changed ? (editing ? t('common.saved') : t('meet.published')) : t('common.nothingChanged'), res.changed ? 'success' : 'info');
       navigate(`#/meetups/${res.id}`);
     } catch (ex) {
-      err.set(/invalid_start/.test(String(ex?.message)) ? t('meet.err.past') : friendlyError(ex));
+      const base = /invalid_start/.test(String(ex?.message)) ? t('meet.err.past') : friendlyError(ex);
+      const isStorage = /Storage/i.test(String(ex?.name)) || ex?.statusCode;      // 사진 업로드 실패면 원인 코드를 짧게 덧붙임 (문제 찾기용)
+      err.set(isStorage ? `${base} [${String(ex?.statusCode ?? '')} ${String(ex?.message ?? '').slice(0, 80)}]` : base);
     }
   });
 
+  if (!editing) {
+    const snap = () => saveDraft({ category: state.category, languages: state.languages, approval: state.approval, region: state.region,
+      regionTouched: state.regionTouched, place: state.place, title: title.input.value, when: when.input.value, capacity: capacity.input.value,
+      cost: cost.input.value, desc: desc.input.value });
+    form.addEventListener('input', snap); form.addEventListener('change', snap); form.addEventListener('click', () => setTimeout(snap, 0));
+    window.addEventListener('pagehide', snap);
+    var stopDraft = () => window.removeEventListener('pagehide', snap);
+  }
   root.append(form);
   paintCats(); paintLangs(); paintPlace(); paintCover();
-  return () => { stopMap(); if (coverUrl) URL.revokeObjectURL(coverUrl); };
+  return () => { stopMap(); stopDraft?.(); if (coverUrl) URL.revokeObjectURL(coverUrl); };
 }

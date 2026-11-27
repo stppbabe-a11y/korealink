@@ -65,6 +65,8 @@ export async function initAuth() {
     const wasUser = state.session?.user?.id;
     state.session = session;
     if (event === 'TOKEN_REFRESHED') return;           // 조용한 갱신 — 화면은 그대로
+    // 사진 고르기/앱 전환 후 돌아오면 같은 사람으로 SIGNED_IN 이 또 오는데, 이때 화면을 다시 그리면 쓰던 글이 지워집니다.
+    if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION' || event === 'USER_UPDATED') && session && wasUser === session.user.id && state.profile) return;
     // ※ 이 콜백 안에서 sb 를 직접 await 하면 교착(멈춤)될 수 있어 setTimeout 으로 한 박자 늦춥니다.
     setTimeout(async () => {
       if (!session) {
