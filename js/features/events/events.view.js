@@ -24,11 +24,21 @@ function eventLink(e, lang) {
   const kids = [e.title, icon('external', 14)];
   if (/^https?:\/\//i.test(e.homepage ?? '')) return extLink({ class: 'stretched', href: e.homepage }, ...kids);
   if (e.homepage === '') return extLink({ class: 'stretched', href: searchUrl(e.title, lang) }, ...kids);
-  return lazyLink({ class: 'stretched', href: searchUrl(e.title, lang) }, async () => {
-    const u = await resolveHomepage(e.id, lang);
-    if (u) e.homepage = u;
-    return u;
-  }, ...kids);
+  return lazyLink({ class: 'stretched', href: searchUrl(e.title, lang) }, () => resolveOnce(e, lang), ...kids);
+}
+
+// 행사 홈페이지 조회 (같은 행사는 한 번만 서버에 물어봄)
+function resolveOnce(e, lang) {
+  if (/^https?:\/\//i.test(e.homepage ?? '')) return Promise.resolve(e.homepage);
+  e._pending ??= resolveHomepage(e.id, lang).then((u) => { if (u) e.homepage = u; return u; }).finally(() => { e._pending = null; });
+  return e._pending;
+}
+
+// 목록이 뜬 뒤 미리 홈페이지를 찾아 둠 → 폰에서 눌렀을 때 기다림 없이 바로 이동 (한 번에 2개씩, 앞쪽 12개)
+async function prefetchHomepages(rows, lang, isStale) {
+  const todo = rows.filter((e) => e.homepage == null).slice(0, 12);
+  const worker = async () => { while (todo.length && !isStale()) { try { await resolveOnce(todo.shift(), lang); } catch { /* 무시 */ } } };
+  await Promise.all([worker(), worker()]);
 }
 
 function eventCard(e, lang) {
@@ -78,6 +88,7 @@ function liveSection() {
     list.replaceChildren(...(res.rows.length
       ? res.rows.map((e) => eventCard(e, lang))
       : [h('p', { class: 'muted empty-note' }, t('events.live.empty')), ktoStatus.text && h('p', { class: 'muted small status-note' }, `Status: ${ktoStatus.text}`)]));
+    prefetchHomepages(res.rows, lang, () => my !== seq);
   }
 
   load();

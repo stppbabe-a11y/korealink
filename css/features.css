@@ -454,3 +454,4 @@
 .notif-item.unread { background: var(--primary-soft); }
 .notif-item.unread .notif-dot { background: var(--primary); }
 .row-between { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; }
+a.is-loading { opacity: .55; cursor: progress; }
