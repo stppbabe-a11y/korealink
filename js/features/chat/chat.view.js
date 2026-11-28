@@ -113,7 +113,17 @@ export async function roomView({ root, params }) {
         h('a', { class: 'btn btn-primary btn-sm', href: `#/login?next=${encodeURIComponent(location.hash)}` }, t('auth.login')))
     : null;
   const nearBottom = () => scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 120;
-  const toBottom = () => { scroller.scrollTop = scroller.scrollHeight; };
+  const toBottom = () => {
+    scroller.scrollTop = scroller.scrollHeight;
+    requestAnimationFrame(() => { scroller.scrollTop = scroller.scrollHeight; });   // 글이 그려진 뒤 한 번 더
+    setTimeout(() => { scroller.scrollTop = scroller.scrollHeight; }, 250);          // 폰 키보드가 올라오는 동안 한 번 더
+  };
+  // 폰 키보드가 올라오거나 내려가 화면 높이가 바뀔 때, 맨 아래를 보고 있었다면 맨 아래를 유지
+  let wasAtBottom = true;
+  scroller.addEventListener('scroll', () => { wasAtBottom = nearBottom(); }, { passive: true });
+  const onResize = () => { if (wasAtBottom) scroller.scrollTop = scroller.scrollHeight; };
+  window.addEventListener('resize', onResize);
+  window.visualViewport?.addEventListener('resize', onResize);
 
   // ---- 메시지 한 줄 만들기 ------------------------------------------------------
   function messageEl(msg) {
@@ -272,6 +282,7 @@ export async function roomView({ root, params }) {
       input.focus();
     }
   }
+  input.addEventListener('focus', () => setTimeout(toBottom, 300));   // 입력칸을 누르면(키보드 올라올 때) 최신 글이 보이게
   form.addEventListener('submit', (e) => { e.preventDefault(); send(); });
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); }   // 한글 입력 중 Enter 는 무시
@@ -306,7 +317,7 @@ export async function roomView({ root, params }) {
     onReconnect: catchUp,
   });
 
-  return () => { unsubscribe(); document.removeEventListener('click', onDocClick); root.classList.remove('chat-mode'); };
+  return () => { unsubscribe(); window.removeEventListener('resize', onResize); window.visualViewport?.removeEventListener('resize', onResize); document.removeEventListener('click', onDocClick); root.classList.remove('chat-mode'); };
 }
 
 // 사진 크게 보기 (원본 크기 사진은 이때만 내려받음 = 데이터 절약)
